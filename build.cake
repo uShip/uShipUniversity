@@ -43,7 +43,7 @@ Task("Build")
     else
     {
       // Use XBuild
-      XBuild("./src/Example.sln", settings =>
+      XBuild("./src/MVC.Courses.sln", settings =>
         settings.SetConfiguration(configuration));
     }
 });
@@ -52,7 +52,7 @@ Task("Run-Unit-Tests")
     .IsDependentOn("Build")
     .Does(() =>
 {
-    NUnit3("./src/**/bin/" + configuration + "/*.Tests.dll", new NUnit3Settings {
+    NUnit3("./src/**/bin/" + configuration + "/*.Test.dll", new NUnit3Settings {
         NoResults = true
         });
 });
