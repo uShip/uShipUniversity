@@ -17,7 +17,9 @@ namespace MVC.Courses.Test.Web
 
         public override void Initialize()
         {
-            _chromeDriver = new ChromeDriver();
+            var options = new ChromeOptions();
+            options.AddArgument("--headless");
+            _chromeDriver = new ChromeDriver(options);
         }
 
         public override void Cleanup()
