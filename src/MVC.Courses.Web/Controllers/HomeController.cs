@@ -1,30 +1,54 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Text;
 using System.Web;
+using System.Web.Script.Serialization;
 using System.Web.Mvc;
+
+using Newtonsoft.Json;
 
 namespace MVC.Courses.Web.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public RedirectResult Index()
         {
-            return View();
+            return new RedirectResult("Home/Status", false);
+        }
+
+        public HttpStatusCodeResult Status()
+        {
+            return new HttpStatusCodeResult(200, "All uShip A-OK");
         }
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            return new EmptyResult();
         }
 
-        public ActionResult Contact()
+        public JsonResult GiveMeJson(string requestObject)
         {
-            ViewBag.Message = "Your contact page.";
+            object responseData;
+            switch (requestObject)
+            {
+                case "headers":
+                    responseData = JsonConvert.SerializeObject(Request.Headers, Formatting.None);
+                    break;
+                case "method":
+                    responseData = JsonConvert.SerializeObject(Request.HttpMethod, Formatting.None);
+                    break;
+                case "browser":
+                    responseData = JsonConvert.SerializeObject(Request.Browser, Formatting.None);
+                    break;
+                default:
+                    responseData = JsonConvert.SerializeObject(Request);
+                    break;
+            }
 
-            return View();
+            return new JsonResult
+            {
+                ContentEncoding = Encoding.ASCII,
+                Data = responseData,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
         }
     }
 }
