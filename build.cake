@@ -38,7 +38,8 @@ Task("Build")
     {
       // Use MSBuild
       MSBuild("./src/MVC.Courses.sln", settings =>
-        settings.SetConfiguration(configuration));
+        settings.SetConfiguration(configuration)
+		.SetVerbosity(Verbosity.Quiet));
     }
     else
     {
