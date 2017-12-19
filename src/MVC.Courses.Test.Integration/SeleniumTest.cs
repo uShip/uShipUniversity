@@ -1,9 +1,9 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
-namespace MVC.Courses.Test.Web
+namespace MVC.Courses.Test
 {
-    public abstract class SeleniumTest : IISServerTest
+    public abstract class SeleniumTest : IisServerTestBase
     {
         private ChromeDriver _chromeDriver;
 

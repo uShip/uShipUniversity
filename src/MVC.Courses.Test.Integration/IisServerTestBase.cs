@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-
 using NUnit.Framework;
 
-namespace MVC.Courses.Test.Web
+namespace MVC.Courses.Test
 {
     [SetUpFixture]
-    public abstract class IISServerTest
+    public abstract class IisServerTestBase
     {
         const int IisPort = 2042;
         private readonly string _applicationName;
         private Process _iisProcess;
 
-        protected IISServerTest(string applicationName)
+        protected IisServerTestBase(string applicationName)
         {
             _applicationName = applicationName;
         }
