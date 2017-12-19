@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using NUnit.Framework;
 
-namespace MVC.Courses.Test
+namespace MVC.Courses.Test.Integration
 {
     [SetUpFixture]
     public abstract class IisServerTestBase

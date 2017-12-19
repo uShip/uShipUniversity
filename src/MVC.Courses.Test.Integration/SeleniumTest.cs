@@ -1,7 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
-namespace MVC.Courses.Test
+namespace MVC.Courses.Test.Integration
 {
     public abstract class SeleniumTest : IisServerTestBase
     {

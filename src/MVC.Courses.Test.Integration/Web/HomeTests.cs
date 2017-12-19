@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using Should;
 
-namespace MVC.Courses.Test.Web
+namespace MVC.Courses.Test.Integration.Web
 {
     [TestFixture(Category = "Selenium")]
     public class HomeTests : SeleniumTest

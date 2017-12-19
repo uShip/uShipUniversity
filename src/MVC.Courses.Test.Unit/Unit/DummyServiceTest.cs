@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using Should;
 
-namespace MVC.Courses.Test.Unit
+namespace MVC.Courses.Test.Unit.Unit
 {
     [TestFixture(Category = "UnitTest")]
     public class DummyServiceTest
