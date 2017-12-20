@@ -12,7 +12,7 @@ namespace MVC.Courses.Test.Integration.Web
         public void Home_index_should_redirect_to_status()
         {
             WebDriver.Navigate().GoToUrl(GetAbsoluteUrl("/"));
-            WebDriver.Url.ShouldContain("localhost");
+            WebDriver.Url.ShouldContain("foobar");
         }
 
         [TestCase]
