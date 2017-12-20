@@ -18,43 +18,50 @@ var buildDir = Directory("./build/bin") + Directory(configuration);
 //////////////////////////////////////////////////////////////////////
 
 Task("Clean")
-    .Does(() =>
-{
-    CleanDirectory(buildDir);
+    .Does(() => {
+        CleanDirectory(buildDir);
 });
 
 Task("Restore-NuGet-Packages")
     .IsDependentOn("Clean")
-    .Does(() =>
-{
-    NuGetRestore("./src/MVC.Courses.sln");
+    .Does(() => {
+        NuGetRestore("./src/MVC.Courses.sln");
 });
 
 Task("Build")
     .IsDependentOn("Restore-NuGet-Packages")
-    .Does(() =>
-{
-    if(IsRunningOnWindows())
-    {
-      // Use MSBuild
-      MSBuild("./src/MVC.Courses.sln", settings =>
-        settings.SetConfiguration(configuration));
-    }
-    else
-    {
-      // Use XBuild
-      XBuild("./src/MVC.Courses.sln", settings =>
-        settings.SetConfiguration(configuration));
-    }
+    .Does(() => {
+        if(IsRunningOnWindows())
+        {
+            // Use MSBuild
+            MSBuild("./src/MVC.Courses.sln", settings =>
+                settings.SetConfiguration(configuration)
+                .SetVerbosity(Verbosity.Quiet));
+        }
+        else
+        {
+            // Use XBuild
+            //   XBuild("./src/MVC.Courses.sln", settings =>
+            //     settings.SetConfiguration(configuration));
+            // Use MSBuild
+            MSBuild("./src/MVC.Courses.sln", settings =>
+                settings.SetConfiguration(configuration)
+                .SetVerbosity(Verbosity.Quiet));
+        }
 });
 
 Task("Run-Unit-Tests")
     .IsDependentOn("Build")
-    .Does(() =>
-{
-    NUnit3("./src/**/bin/" + configuration + "/*.Test.dll", new NUnit3Settings {
-        NoResults = false
-        });
+    .Does(() => {
+        NUnit3("./src/**/bin/" + configuration + "/*.Test.Unit.dll", new NUnit3Settings {
+            NoResults = false
+            });
+
+        if(IsRunningOnWindows()) {
+            NUnit3("./src/**/bin/" + configuration + "/*.Test.Integration.dll", new NUnit3Settings {
+                NoResults = false
+                });
+        }
 });
 
 //////////////////////////////////////////////////////////////////////
