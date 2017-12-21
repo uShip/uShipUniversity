@@ -14,7 +14,7 @@ namespace MVC.Courses.Web.Controllers
 
         public HttpStatusCodeResult Status()
         {
-            return new HttpStatusCodeResult(200, "All uShip A-OK");
+            return new HttpStatusCodeResult(200, "Mike R is A-OK");
         }
 
         public ActionResult About()
