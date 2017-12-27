@@ -5,6 +5,7 @@
         public string Foo()
         {
             return "bar";
+
         }
     }
 }
