@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Net.Http;
 using NUnit.Framework;
 
 namespace MVC.Courses.Test.Integration
 {   
     public abstract class IisServerTestBase
     {
-        const int IisPort = 2042;
+        private const ushort IisPort = 2042;
+        private const ushort VisualStudioPort = 50544;
+
         private readonly string _applicationName;
         private Process _iisProcess;
 
@@ -30,7 +33,7 @@ namespace MVC.Courses.Test.Integration
         {
             Cleanup();
             // Ensure IISExpress is stopped
-            if (_iisProcess.HasExited == false)
+            if (_iisProcess?.HasExited == false)
             {
                 _iisProcess.Kill();
             }
@@ -39,8 +42,32 @@ namespace MVC.Courses.Test.Integration
         public abstract void Initialize();
         public abstract void Cleanup();
 
+        private static bool IsVsIisRunning()
+        {
+            using (var client = new HttpClient())
+            {
+                var request = client.GetAsync($"http://localhost:{VisualStudioPort}/Home/Status");
+                try
+                {
+                    var response = request.Result;
+                    var isOk =  response.IsSuccessStatusCode;
+                    response.Dispose();
+                    return isOk;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+        }
         private void StartIIS()
         {
+            _iisProcess = null;
+            if (IsVsIisRunning())
+            {
+                return;
+            }
+
             var applicationPath = GetApplicationPath(_applicationName);
             var programFiles = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
 
@@ -58,13 +85,10 @@ namespace MVC.Courses.Test.Integration
             return Path.Combine(solutionFolder, applicationName);
         }
 
+        private ushort CurrentPort => _iisProcess != null ? IisPort : VisualStudioPort;
         public string GetAbsoluteUrl(string relativeUrl)
         {
-            if (!relativeUrl.StartsWith("/"))
-            {
-                relativeUrl = "/" + relativeUrl;
-            }
-            return $"http://localhost:{IisPort}/{relativeUrl}";
+            return $"http://localhost:{CurrentPort}{(relativeUrl.StartsWith("/") ? "" : "/")}{relativeUrl}";
         }
     }
 }
