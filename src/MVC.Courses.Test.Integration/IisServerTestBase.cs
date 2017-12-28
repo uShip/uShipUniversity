@@ -56,10 +56,9 @@ namespace MVC.Courses.Test.Integration
 
         protected virtual string GetApplicationPath(string applicationName)
         {
-            var solutionFolder =
-                Path.GetDirectoryName(
-                    Path.GetDirectoryName(Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory)));
-            if (solutionFolder == null) throw new ArgumentException("BaseDirectory does not resolve valid path");
+            var baseDir = AppDomain.CurrentDomain.BaseDirectory;            
+            var solutionFolder = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..",".."));
+            
             return Path.Combine(solutionFolder, applicationName);
         }
 
