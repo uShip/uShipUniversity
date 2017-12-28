@@ -5,10 +5,9 @@ using NUnit.Framework;
 
 namespace MVC.Courses.Test.Integration
 {
-    [SetUpFixture]
     public abstract class IisServerTestBase
     {
-        const int IisPort = 2042;
+        private const int IisPort = 2042;
         private readonly string _applicationName;
         private Process _iisProcess;
 
@@ -21,8 +20,7 @@ namespace MVC.Courses.Test.Integration
         public void TestInitialize()
         {
             // Start IISExpress
-            StartIIS();
-
+            StartIis();
             Initialize();
         }
 
@@ -40,14 +38,19 @@ namespace MVC.Courses.Test.Integration
         public abstract void Initialize();
         public abstract void Cleanup();
 
-        private void StartIIS()
+        private void StartIis()
         {
             var applicationPath = GetApplicationPath(_applicationName);
             var programFiles = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
 
-            _iisProcess = new Process();
-            _iisProcess.StartInfo.FileName = programFiles + @"\IIS Express\iisexpress.exe";
-            _iisProcess.StartInfo.Arguments = string.Format("/path:\"{0}\" /port:{1}", applicationPath, IisPort);
+            _iisProcess = new Process
+            {
+                StartInfo =
+                {
+                    FileName = programFiles + @"\IIS Express\iisexpress.exe",
+                    Arguments = $"/path:\"{applicationPath}\" /port:{IisPort}"
+                }
+            };
             _iisProcess.Start();
         }
 
@@ -56,6 +59,7 @@ namespace MVC.Courses.Test.Integration
             var solutionFolder =
                 Path.GetDirectoryName(
                     Path.GetDirectoryName(Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory)));
+            if (solutionFolder == null) throw new ArgumentException("BaseDirectory does not resolve valid path");
             return Path.Combine(solutionFolder, applicationName);
         }
 
@@ -65,7 +69,7 @@ namespace MVC.Courses.Test.Integration
             {
                 relativeUrl = "/" + relativeUrl;
             }
-            return String.Format("http://localhost:{0}/{1}", IisPort, relativeUrl);
+            return $"http://localhost:{IisPort}/{relativeUrl}";
         }
     }
 }
