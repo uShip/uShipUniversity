@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
+using System.Threading.Tasks;
 using NUnit.Framework;
 
 namespace MVC.Courses.Test.Integration
@@ -19,19 +20,22 @@ namespace MVC.Courses.Test.Integration
             _applicationName = applicationName;
         }
 
+        [OneTimeSetUp]
+        public Task FixtureInitialze()
+        {
+            // Start IISExpress
+            return StartIis();
+        }
+
         [SetUp]
         public void TestInitialize()
         {
-            // Start IISExpress
-            StartIIS();
-
             Initialize();
         }
 
-        [TearDown]
-        public void TestCleanup()
+        [OneTimeTearDown]
+        public void FixtureCleanup()
         {
-            Cleanup();
             // Ensure IISExpress is stopped
             if (_iisProcess?.HasExited == false)
             {
@@ -39,20 +43,25 @@ namespace MVC.Courses.Test.Integration
             }
         }
 
+        [TearDown]
+        public void TestCleanup()
+        {
+            Cleanup();           
+        }
+
         public abstract void Initialize();
         public abstract void Cleanup();
 
-        private static bool IsVsIisRunning()
+        private static async Task<bool> IsVsIisRunning()
         {
             using (var client = new HttpClient())
             {
-                var request = client.GetAsync($"http://localhost:{VisualStudioPort}/Home/Status");
                 try
                 {
-                    var response = request.Result;
-                    var isOk =  response.IsSuccessStatusCode;
-                    response.Dispose();
-                    return isOk;
+                    using (var response = await client.GetAsync($"http://localhost:{VisualStudioPort}/Home/Status"))
+                    {
+                        return response.IsSuccessStatusCode;
+                    }
                 }
                 catch (Exception)
                 {
@@ -60,10 +69,10 @@ namespace MVC.Courses.Test.Integration
                 }
             }
         }
-        private void StartIIS()
+        private async Task StartIis()
         {
             _iisProcess = null;
-            if (IsVsIisRunning())
+            if (await IsVsIisRunning())
             {
                 return;
             }
@@ -71,16 +80,21 @@ namespace MVC.Courses.Test.Integration
             var applicationPath = GetApplicationPath(_applicationName);
             var programFiles = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
 
-            _iisProcess = new Process();
-            _iisProcess.StartInfo.FileName = Path.Combine(programFiles,"IIS Express","iisexpress.exe");
-            _iisProcess.StartInfo.Arguments = $"/path:\"{applicationPath}\" /port:{IisPort}";
+            _iisProcess = new Process
+            {
+                StartInfo =
+                {
+                    FileName = Path.Combine(programFiles, "IIS Express", "iisexpress.exe"),
+                    Arguments = $"/path:\"{applicationPath}\" /port:{IisPort}"
+                }
+            };
             _iisProcess.Start();
         }
 
         protected virtual string GetApplicationPath(string applicationName)
         {
             var baseDir = AppDomain.CurrentDomain.BaseDirectory;            
-            var solutionFolder = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..",".."));
+            var solutionFolder = Path.GetFullPath(Path.Combine(baseDir, "..", "..",".."));
             
             return Path.Combine(solutionFolder, applicationName);
         }
