@@ -4,8 +4,7 @@ using System.IO;
 using NUnit.Framework;
 
 namespace MVC.Courses.Test.Integration
-{
-    [SetUpFixture]
+{   
     public abstract class IisServerTestBase
     {
         const int IisPort = 2042;
@@ -46,16 +45,16 @@ namespace MVC.Courses.Test.Integration
             var programFiles = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
 
             _iisProcess = new Process();
-            _iisProcess.StartInfo.FileName = programFiles + @"\IIS Express\iisexpress.exe";
-            _iisProcess.StartInfo.Arguments = string.Format("/path:\"{0}\" /port:{1}", applicationPath, IisPort);
+            _iisProcess.StartInfo.FileName = Path.Combine(programFiles,"IIS Express","iisexpress.exe");
+            _iisProcess.StartInfo.Arguments = $"/path:\"{applicationPath}\" /port:{IisPort}";
             _iisProcess.Start();
         }
 
         protected virtual string GetApplicationPath(string applicationName)
         {
-            var solutionFolder =
-                Path.GetDirectoryName(
-                    Path.GetDirectoryName(Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory)));
+            var baseDir = AppDomain.CurrentDomain.BaseDirectory;            
+            var solutionFolder = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..",".."));
+            
             return Path.Combine(solutionFolder, applicationName);
         }
 
@@ -65,7 +64,7 @@ namespace MVC.Courses.Test.Integration
             {
                 relativeUrl = "/" + relativeUrl;
             }
-            return String.Format("http://localhost:{0}/{1}", IisPort, relativeUrl);
+            return $"http://localhost:{IisPort}/{relativeUrl}";
         }
     }
 }
