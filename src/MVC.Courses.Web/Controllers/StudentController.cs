@@ -13,7 +13,7 @@ namespace MVC.Courses.Web.Controllers
 
         public ActionResult GetAgent()
         {
-            var responseData = $"Requesting Agent: { JsonConvert.SerializeObject(Request.ContentType, Formatting.None) }";
+            var responseData = $"Requesting Agent: { JsonConvert.SerializeObject(Request.Browser.Browser, Formatting.None) }";
             return Content(responseData);
         }
     }

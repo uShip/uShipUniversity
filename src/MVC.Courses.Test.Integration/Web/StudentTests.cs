@@ -24,7 +24,7 @@ namespace MVC.Courses.Test.Integration.Web
             WebDriver.Navigate().GoToUrl(GetAbsoluteUrl("/Student/getAgent"));
             var source = WebDriver.PageSource;
             Console.WriteLine($"Webdriver.PageSource: {source}");
-            source.ShouldContain("Requesting Agent: Chrome");
+            source.ShouldContain("Chrome");
         }
     }
 }
