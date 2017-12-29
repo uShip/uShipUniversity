@@ -15,9 +15,9 @@ namespace MVC.Courses.Test.Integration
         public override void Initialize()
         {
             var options = new ChromeOptions();
-//            options.AddArgument("--headless");
-//            options.AddArgument("--disable-gpu");
-//            options.AddArgument("--no-sandbox");
+            options.AddArgument("--headless");
+            options.AddArgument("--disable-gpu");
+            options.AddArgument("--no-sandbox");
             _chromeDriver = new ChromeDriver(options);
         }
 
