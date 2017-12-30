@@ -1,3 +1,7 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/g73gf2dkfatc40rp?svg=true)](https://ci.appveyor.com/project/usu/ushipuniversity)
+
+
+
 # README #
 
 This README would normally document whatever steps are necessary to get your application up and running.
