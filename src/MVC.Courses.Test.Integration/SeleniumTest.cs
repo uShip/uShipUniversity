@@ -7,7 +7,10 @@ namespace MVC.Courses.Test.Integration
     {
         private ChromeDriver _chromeDriver;
 
-        protected IWebDriver WebDriver => _chromeDriver;
+        protected IWebDriver WebDriver
+        {
+            get { return _chromeDriver; }
+        }
 
         protected SeleniumTest(string appName) : base(appName) { }
 
@@ -17,7 +20,6 @@ namespace MVC.Courses.Test.Integration
             var options = new ChromeOptions();
             options.AddArgument("--headless");
             options.AddArgument("--disable-gpu");
-            options.AddArgument("--no-sandbox");
             _chromeDriver = new ChromeDriver(options);
         }
 
