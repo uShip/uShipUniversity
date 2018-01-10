@@ -18,8 +18,8 @@ namespace MVC.Courses.Test.Integration.Web
         [TestCase]
         public void GiveMeJson_should_return_json()
         {
-            WebDriver.Navigate().GoToUrl(GetAbsoluteUrl("/Home/givemejson?requestObject=headers"));
-            var source = WebDriver.PageSource;
+            WebDriver.Navigate().GoToUrl(GetAbsoluteUrl("/Home/givemejson?requestObject=headers"));            
+            var source = WebDriver.PageSource;                       
             source.ShouldNotBeEmpty();
         }
     }

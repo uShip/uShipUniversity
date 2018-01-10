@@ -50,7 +50,7 @@ Task("Build")
         }
 });
 
-Task("Run-Unit-Tests")
+Task("Run-Tests")
     .IsDependentOn("Build")
     .Does(() => {
         NUnit3("./src/**/bin/" + configuration + "/*.Test.Unit.dll", new NUnit3Settings {
@@ -69,7 +69,7 @@ Task("Run-Unit-Tests")
 //////////////////////////////////////////////////////////////////////
 
 Task("Default")
-    .IsDependentOn("Run-Unit-Tests");
+    .IsDependentOn("Run-Tests");
 
 //////////////////////////////////////////////////////////////////////
 // EXECUTION

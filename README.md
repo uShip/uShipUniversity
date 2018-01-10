@@ -1,29 +1,43 @@
-# README #
+## Build Status
 
-This README would normally document whatever steps are necessary to get your application up and running.
+|Develop (@au) |Master|
+|:--:|:--:|
+|[![Build status](https://ci.appveyor.com/api/projects/status/g73gf2dkfatc40rp/branch/AdamUlbrich?svg=true)](https://ci.appveyor.com/project/usu/ushipuniversity/branch/AdamUlbrich)|[![Build status](https://ci.appveyor.com/api/projects/status/g73gf2dkfatc40rp/branch/master?svg=true)](https://ci.appveyor.com/project/usu/ushipuniversity/branch/master)|
 
-### What is this repository for? ###
+# uShip University
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+Repository for uShip University Web App
 
-### How do I get set up? ###
+### Prerequisites
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+Windows Platform: Microsoft .NET / Visual Studio 2017 / Powershell  What things you need to install the software and how to install them
 
-### Contribution guidelines ###
+MacOS / Linux: Mono / BASH / Visual Studio Code
 
-* Writing tests
-* Code review
-* Other guidelines
+### Building
 
-### Who do I talk to? ###
+Windows:
 
-* Repo owner or admin
-* Other community or team contact
+```
+.\build.ps1
+```
+Mac:
+
+```
+./build.sh
+```
+
+### Continous Integration
+
+AppVeyor CI: [uShip Univerisity](https://ci.appveyor.com/project/usu/ushipuniversity)
+
+## Authors
+
+* **Adam Ulbrich** - *Initial work* - [kermit_xc](https://github.com/kermitxc)
+
+See also the list of [contributors](https://github.com/uShip/uShipUniversity/graphs/contributors) who participated in this project.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+

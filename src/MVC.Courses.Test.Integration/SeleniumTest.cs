@@ -19,6 +19,7 @@ namespace MVC.Courses.Test.Integration
         {
             var options = new ChromeOptions();
             options.AddArgument("--headless");
+            options.AddArgument("--disable-gpu");
             _chromeDriver = new ChromeDriver(options);
         }
 
