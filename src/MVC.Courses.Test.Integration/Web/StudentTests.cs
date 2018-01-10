@@ -14,7 +14,7 @@ namespace MVC.Courses.Test.Integration.Web
         public StudentTests() : base("MVC.Courses.WEB") { }
 
         [TestCase]
-        public void Student_getAgent_should_return_user_agent()
+        public void Student_getAgent_should_return_browser_type()
         {
             var userAgent = "Chrome";
 
