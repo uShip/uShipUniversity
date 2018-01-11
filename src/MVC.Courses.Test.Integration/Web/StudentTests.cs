@@ -11,6 +11,13 @@ namespace MVC.Courses.Test.Integration.Web
         }
 
         [TestCase]
+        public void Student_index_should_redirect_to_GetAgent()
+        {
+            WebDriver.Navigate().GoToUrl(GetAbsoluteUrl("/student"));
+            WebDriver.Url.ShouldContain("/Student/GetAgent");
+        }
+
+        [TestCase]
         public void GetAgent_should_return_json()
         {
             WebDriver.Navigate().GoToUrl(GetAbsoluteUrl("/Student/GetAgent"));

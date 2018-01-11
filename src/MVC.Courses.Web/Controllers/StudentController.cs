@@ -10,6 +10,11 @@ namespace MVC.Courses.Web.Controllers
 {
     public class StudentController : Controller
     {
+        public RedirectResult Index()
+        {
+            return new RedirectResult("Student/GetAgent", false);
+        }
+
         public ActionResult GetAgent()
         {
             var browser = Request.Browser.Browser;
