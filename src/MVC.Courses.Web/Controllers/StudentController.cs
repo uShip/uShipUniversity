@@ -1,5 +1,4 @@
-﻿using System.Text;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Newtonsoft.Json;
 
 namespace MVC.Courses.Web.Controllers
@@ -14,17 +13,12 @@ namespace MVC.Courses.Web.Controllers
                 ? "You really should get a better browser."
                 : "That is just splendid.";
 
-            var responseData = JsonConvert.SerializeObject(new 
+            var responseData = new 
             {
                 result = $"{fact} {opinion}"
-            });
-
-            return new JsonResult
-            {
-                ContentEncoding = Encoding.UTF8,
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
-                Data = responseData
             };
+
+            return Json(responseData, JsonRequestBehavior.AllowGet);
         }
     }
 }
