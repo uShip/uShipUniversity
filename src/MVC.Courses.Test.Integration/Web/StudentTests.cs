@@ -13,7 +13,7 @@ namespace MVC.Courses.Test.Integration.Web
         {
             WebDriver.Navigate().GoToUrl(GetAbsoluteUrl("/Student/GetAgent"));
             var source = WebDriver.PageSource;
-            source.ShouldNotBeEmpty();
+            source.ToLower().ShouldContain("chrome");
         }
     }
 }
