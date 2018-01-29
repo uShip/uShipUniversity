@@ -31,23 +31,10 @@ Task("Restore-NuGet-Packages")
 Task("Build")
     .IsDependentOn("Restore-NuGet-Packages")
     .Does(() => {
-        if(IsRunningOnWindows())
-        {
-            // Use MSBuild
-            MSBuild("./src/MVC.Courses.sln", settings =>
-                settings.SetConfiguration(configuration)
-                .SetVerbosity(Verbosity.Quiet));
-        }
-        else
-        {
-            // Use XBuild
-            //   XBuild("./src/MVC.Courses.sln", settings =>
-            //     settings.SetConfiguration(configuration));
-            // Use MSBuild
-            MSBuild("./src/MVC.Courses.sln", settings =>
-                settings.SetConfiguration(configuration)
-                .SetVerbosity(Verbosity.Quiet));
-        }
+        // Use MSBuild
+        MSBuild("./src/MVC.Courses.sln", settings =>
+            settings.SetConfiguration(configuration)
+            .SetVerbosity(Verbosity.Quiet));
 });
 
 Task("Run-Tests")

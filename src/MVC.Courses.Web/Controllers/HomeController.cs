@@ -19,6 +19,7 @@ namespace MVC.Courses.Web.Controllers
 
         public ActionResult About()
         {
+            //Jim's white space push
             return new EmptyResult();
         }
 
