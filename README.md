@@ -1,8 +1,8 @@
 ## Build Status
 
-|Develop (@au) |Master|
+|Develop (@Winchariot) |Master|
 |:--:|:--:|
-|[![Build status](https://ci.appveyor.com/api/projects/status/g73gf2dkfatc40rp/branch/AdamUlbrich?svg=true)](https://ci.appveyor.com/project/usu/ushipuniversity/branch/AdamUlbrich)|[![Build status](https://ci.appveyor.com/api/projects/status/g73gf2dkfatc40rp/branch/master?svg=true)](https://ci.appveyor.com/project/usu/ushipuniversity/branch/master)|
+|[![Build status](https://ci.appveyor.com/api/projects/status/g73gf2dkfatc40rp/branch/jimg?svg=true)](https://ci.appveyor.com/project/usu/ushipuniversity/branch/jimg)|[![Build status](https://ci.appveyor.com/api/projects/status/g73gf2dkfatc40rp/branch/master?svg=true)](https://ci.appveyor.com/project/usu/ushipuniversity/branch/master)|
 
 # uShip University
 
