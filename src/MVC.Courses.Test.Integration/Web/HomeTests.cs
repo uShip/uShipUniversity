@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Newtonsoft.Json;
+using NUnit.Framework;
 using Should;
 
 namespace MVC.Courses.Test.Integration.Web
@@ -21,6 +22,15 @@ namespace MVC.Courses.Test.Integration.Web
             WebDriver.Navigate().GoToUrl(GetAbsoluteUrl("/Home/givemejson?requestObject=headers"));            
             var source = WebDriver.PageSource;                       
             source.ShouldNotBeEmpty();
+        }
+
+        [TestCase]
+        public void GetAgent_should_return_browserName()
+        {
+            WebDriver.Navigate().GoToUrl(GetAbsoluteUrl("/Home/getagent"));
+            var source = WebDriver.PageSource;
+            source.ShouldContain("chrome");
+            source.ShouldContain("version");
         }
     }
 }

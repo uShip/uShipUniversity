@@ -22,6 +22,17 @@ namespace MVC.Courses.Web.Controllers
             return new EmptyResult();
         }
 
+        public JsonResult GetAgent()
+        {
+            var browserResponseData = JsonConvert.SerializeObject(Request.Browser, Formatting.None);
+            return new JsonResult
+            {
+                ContentEncoding = Encoding.ASCII,
+                Data = browserResponseData,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
         public JsonResult GiveMeJson(string requestObject)
         {
             object responseData;
